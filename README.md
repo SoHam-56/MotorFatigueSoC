@@ -186,4 +186,4 @@ Key HLS directives used:
 
 ## License
 
-Academic project submitted in partial fulfillment of the B.E.E.T.C.E. degree at Jadavpur University, session 2024–25. All rights reserved by the authors.
+Academic project submitted in partial fulfillment of the B.E. E.T.C.E. degree at Jadavpur University, session 2024–25. All rights reserved by the authors.
