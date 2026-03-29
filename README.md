@@ -2,7 +2,7 @@
 
 Hardware-accelerated signal processing and machine learning for edge-based induction motor condition monitoring, implemented as a hardware/software co-design on the Xilinx PYNQ Z2 SoC.
 
-**Submitted by:** Soukarya Biswas & Soham Pramanik  
+**Submitted by:** Soham Pramanik & Soukarya Biswas
 **Supervisor:** Prof. Sayan Chatterjee, Jadavpur University  
 **Department:** Electronics & Tele-Communication Engineering
 
@@ -175,8 +175,8 @@ Key HLS directives used:
 
 ## Authors
 
-- **Soukarya Biswas** — Jadavpur University
 - **Soham Pramanik** — Jadavpur University
+- **Soukarya Biswas** — Jadavpur University
 
 **Supervisors:**
 - Prof. Sayan Chatterjee (Jadavpur University)
