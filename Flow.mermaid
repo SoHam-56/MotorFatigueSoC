@@ -1,0 +1,73 @@
+graph TD
+    A[/"Input: Raw 3-Phase Currents (R, Y, B) & Base Currents"/] --> B["Normalize Currents (Per-Unit Conversion)"];
+    B --> C["Apply Park's Transformation"];
+    C -- Generates --> Id["Direct Axis Current (Id)"];
+    C -- Generates --> Iq["Quadrature Axis Current (Iq)"];
+    %% Note: Io is also generated but not used further in this specific algorithm
+
+    Id --> D["Calculate Space Vector Magnitude
+    (Pvm = sqrt(Id^2 + Iq^2))"];
+    Iq --> D;
+
+    Iq --> E["Find Zero Crossings in Iq Signal"];
+    E --> F["Determine Start/End Indices for One Full Cycle"];
+
+    F -- Provides Indices --> G["Extract Segment from Pvm using Indices"];
+    D -- Signal to Extract --> G;
+    G --> H["Isolated One Cycle of Pvm (Pv2)"];
+
+    H --> I["Calculate Mean of the Isolated Cycle (mean(Pv2))"];
+    H --> J{Subtract Mean from Cycle};
+    I -- Mean Value --> J;
+    J --> K["Result: DC Offset Removed Signal (Pv3)"];
+
+    %% Added Steps Start Here
+    K --> L["Calculate Statistical Features"];
+
+    subgraph " "
+      direction LR  %% Suggests horizontal layout for items within this subgraph
+      Mean["Mean"]
+      StdDev["Std Dev"]
+      RMS["RMS"]
+      Skew["Skewness"]
+      Kurt["Kurtosis"]
+      PkPk["Peak-to-Peak"]
+      CF["Crest Factor"]
+      SF["Shape Factor"]
+      IF["Impulse Factor"]
+      MF["Margin Factor"]
+      Energy["Energy"]
+    end
+
+    %% Show that the 'Calculate' step produces each feature
+    L --> Mean;
+    L --> StdDev;
+    L --> RMS;
+    L --> Skew;
+    L --> Kurt;
+    L --> PkPk;
+    L --> CF;
+    L --> SF;
+    L --> IF;
+    L --> MF;
+    L --> Energy;
+
+    %% Converge all individual features into the model input step
+    Mean --> M;
+    StdDev --> M;
+    RMS --> M;
+    Skew --> M;
+    Kurt --> M;
+    PkPk --> M;
+    CF --> M;
+    SF --> M;
+    IF --> M;
+    MF --> M;
+    Energy --> M["Input Features to Trained Model (LDA Transformation + Classifier Prediction)"];
+
+    %% Model produces a prediction
+    M --> O[/Prediction/];
+
+    %% Prediction leads to a final classification output
+    O --> P["Healthy Motor"];
+    O --> Q["Fatigued Motor"];
